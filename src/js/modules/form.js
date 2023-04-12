@@ -1,13 +1,11 @@
+import inputOnlyNumber from '../servise';
+
 const forms = () => {
   const forms = document.querySelectorAll('form'),
     inputs = document.querySelectorAll('input'),
     phoneInput = document.querySelectorAll('input[name="user_phone"]');
 
-  phoneInput.forEach((item) => {
-    item.addEventListener('input', () => {
-      item.value = item.value.replace(/\D/, '');
-    });
-  });
+  inputOnlyNumber(phoneInput);
 
   const statusMessage = {
     loading: 'Загрузка...',
