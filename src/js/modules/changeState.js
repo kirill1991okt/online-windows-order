@@ -1,4 +1,4 @@
-import inputOnlyNumber from '../servise';
+import { validateInputNumber } from '../servise';
 
 const changeState = (state) => {
   const forms = document.querySelectorAll('.balcon_icons_img'),
@@ -30,16 +30,14 @@ const changeState = (state) => {
           case 'SELECT':
             state[prop] = item.value;
             break;
-
-          default:
-            break;
         }
+        console.log(state);
       });
     });
   }
 
-  inputOnlyNumber(width);
-  inputOnlyNumber(height);
+  validateInputNumber(width);
+  validateInputNumber(height);
 
   changeStateFromForms('click', forms, 'form');
   changeStateFromForms('input', width, 'width');

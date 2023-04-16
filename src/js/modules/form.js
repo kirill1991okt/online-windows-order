@@ -1,11 +1,11 @@
-import inputOnlyNumber from '../servise';
+import { validateInputNumber } from '../servise';
 
 const forms = (state) => {
   const forms = document.querySelectorAll('form'),
     inputs = document.querySelectorAll('input'),
     phoneInput = document.querySelectorAll('input[name="user_phone"]');
 
-  inputOnlyNumber(phoneInput);
+  validateInputNumber(phoneInput);
 
   const statusMessage = {
     loading: 'Загрузка...',

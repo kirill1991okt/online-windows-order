@@ -1,3 +1,5 @@
+import { validateStateInModals } from '../servise';
+
 const modals = (state) => {
   const bindModals = (
     triggerSelector,
@@ -17,16 +19,23 @@ const modals = (state) => {
           e.preventDefault();
         }
 
+        // validateStateInModals(
+        //   item.getAttribute('id'),
+        //   state,
+        //   openModals.bind(null, windows, modal),
+        //   errorMessage.bind(null, content)
+        // );
+
         switch (item.getAttribute('id')) {
           case 'popup_calc_button':
             state.width && state.height
               ? openModals(windows, modal)
               : errorMessage(content);
+            !state.form ? (state.form = 0) : null;
             break;
           case 'popup_calc_profile_button':
-            state.type && state.profile
-              ? openModals(windows, modal)
-              : alert('err');
+            state.profile ? openModals(windows, modal) : errorMessage(content);
+            !state.type ? (state.type = 'tree') : null;
             break;
 
           default:
