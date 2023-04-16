@@ -1,6 +1,6 @@
 import inputOnlyNumber from '../servise';
 
-const forms = () => {
+const forms = (state) => {
   const forms = document.querySelectorAll('form'),
     inputs = document.querySelectorAll('input'),
     phoneInput = document.querySelectorAll('input[name="user_phone"]');
@@ -11,6 +11,12 @@ const forms = () => {
     loading: 'Загрузка...',
     success: 'Заявка отправлена, с вами свяжутся!',
     failure: 'Что-то пошло не так...',
+  };
+
+  const clearState = (obj) => {
+    for (let key in obj) {
+      delete obj[key];
+    }
   };
 
   const postData = async (url, data) => {
@@ -35,6 +41,11 @@ const forms = () => {
       e.preventDefault();
 
       const formData = new FormData(item);
+      if (item.dataset.end === 'end') {
+        for (let key in state) {
+          formData.append(key, state[key]);
+        }
+      }
 
       const message = document.createElement('div');
       message.classList.add('status');
@@ -52,6 +63,9 @@ const forms = () => {
           clearInputs();
           setTimeout(() => {
             message.remove();
+            document.querySelector('.popup_calc_end').style.display = 'none';
+            document.body.style.overflow = '';
+            clearState(state);
           }, 5000);
         });
     });

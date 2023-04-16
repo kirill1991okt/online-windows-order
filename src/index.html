@@ -1275,7 +1275,9 @@
             required
           />
           <label for="height">мм</label>
-          <button class="button popup_calc_button">Далее</button>
+          <button class="button popup_calc_button" id="popup_calc_button">
+            Далее
+          </button>
         </div>
       </div>
     </div>
@@ -1308,7 +1310,12 @@
             <span class="label">Теплое</span>
           </label>
 
-          <button class="button popup_calc_profile_button">Далее</button>
+          <button
+            class="button popup_calc_profile_button"
+            id="popup_calc_profile_button"
+          >
+            Далее
+          </button>
         </div>
       </div>
     </div>
@@ -1320,7 +1327,7 @@
             <strong>&times;</strong>
           </button>
           <div class="popup_form">
-            <form class="form" action="#">
+            <form class="form" action="#" data-end="end">
               <h2>Спасибо за обращение! <br />Оставьте свои данные</h2>
               <input
                 class="form-control form_input"

@@ -12,15 +12,23 @@ const changeState = (state) => {
       item.addEventListener(event, () => {
         switch (item.nodeName) {
           case 'SPAN':
-            // state[prop] = i;
-            console.log('span');
+            state[prop] = i;
             break;
           case 'INPUT':
             if (item.getAttribute('type') === 'checkbox') {
-              console.log('checkbox');
+              i == 0 ? (state[prop] = 'cold') : (state[prop] = 'hot');
+              elem.forEach((box, j) => {
+                box.checked = false;
+                if (i === j) {
+                  box.checked = true;
+                }
+              });
+            } else {
+              state[prop] = item.value;
             }
-            // state[prop] = i;
-            console.log('span');
+            break;
+          case 'SELECT':
+            state[prop] = item.value;
             break;
 
           default:

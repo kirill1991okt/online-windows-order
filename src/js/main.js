@@ -6,10 +6,9 @@ import changeState from './modules/changeState';
 
 document.addEventListener('DOMContentLoaded', () => {
   const modalState = {};
-  console.log(modalState);
 
   changeState(modalState);
-  modals();
+  modals(modalState);
   tabs('.glazing_slider', '.glazing_block', '.glazing_content', 'active');
   tabs(
     '.balcon_icons',
@@ -18,5 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
     'do_image_more',
     'inline-block'
   );
-  forms();
+  forms(modalState);
 });
