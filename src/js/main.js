@@ -4,6 +4,7 @@ import tabs from './modules/tabs';
 import forms from './modules/form';
 import changeState from './modules/changeState';
 import timer from './modules/timer';
+import image from './modules/image';
 
 document.addEventListener('DOMContentLoaded', () => {
   const modalState = {};
@@ -21,4 +22,5 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   forms(modalState);
   timer('.container1', deadline);
+  image();
 });
