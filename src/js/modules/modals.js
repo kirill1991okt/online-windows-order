@@ -11,7 +11,8 @@ const modals = (state) => {
       modal = document.querySelector(modalSelector),
       close = document.querySelector(closeSelector),
       windows = document.querySelectorAll('[data-modal]'),
-      content = document.querySelector('.popup_calc_content');
+      content = document.querySelector('.popup_calc_content'),
+      scroll = calcScrollWidth();
 
     trigger.forEach((item) => {
       item.addEventListener('click', (e) => {
@@ -19,39 +20,34 @@ const modals = (state) => {
           e.preventDefault();
         }
 
-        // validateStateInModals(
-        //   item.getAttribute('id'),
-        //   state,
-        //   openModals.bind(null, windows, modal),
-        //   errorMessage.bind(null, content)
-        // );
-
         switch (item.getAttribute('id')) {
           case 'popup_calc_button':
             state.width && state.height
-              ? openModals(windows, modal)
+              ? openModals(windows, modal, scroll)
               : errorMessage(content);
             !state.form ? (state.form = 0) : null;
             break;
           case 'popup_calc_profile_button':
-            state.profile ? openModals(windows, modal) : errorMessage(content);
+            state.profile
+              ? openModals(windows, modal, scroll)
+              : errorMessage(content);
             !state.type ? (state.type = 'tree') : null;
             break;
 
           default:
-            openModals(windows, modal);
+            openModals(windows, modal, scroll);
             break;
         }
       });
     });
 
     close.addEventListener('click', () => {
-      hiddenModals(windows, modalSelector);
+      hiddenModals(windows, modalSelector, scroll);
     });
 
     modal.addEventListener('click', (e) => {
       if (e.currentTarget === e.target && closeClickOverlay) {
-        hiddenModals(windows, modalSelector);
+        hiddenModals(windows, modalSelector, scroll);
       }
     });
   };
@@ -63,20 +59,22 @@ const modals = (state) => {
     }, timer);
   };
 
-  const openModals = (windows, modal) => {
+  const openModals = (windows, modal, scroll) => {
     windows.forEach((item) => {
       item.style.display = 'none';
     });
 
     modal.style.display = 'block';
+    modal.style.marginRight = `${scroll}px`;
     document.body.style.overflow = 'hidden';
   };
 
-  const hiddenModals = (windows, modalSelector) => {
+  const hiddenModals = (windows, modalSelector, scroll) => {
     windows.forEach((item) => {
       item.style.display = 'none';
     });
     document.querySelector(modalSelector).style.display = 'none';
+    document.querySelector(modalSelector).style.marginRight = `0px`;
     document.body.style.overflow = '';
   };
 
@@ -89,6 +87,21 @@ const modals = (state) => {
     setTimeout(() => {
       errorDiv.remove();
     }, 2000);
+  };
+
+  const calcScrollWidth = () => {
+    let div = document.createElement('div');
+
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.appendChild(div);
+
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
   };
 
   bindModals(
@@ -113,7 +126,7 @@ const modals = (state) => {
     false
   );
 
-  //   showModals('.popup', 60000);
+  showModals('.popup', 60000);
 };
 
 export default modals;
